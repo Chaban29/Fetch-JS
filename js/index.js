@@ -5,7 +5,11 @@ const renderPosts = async () => {
   const response = await fetch(posts);
   const result = await response.json();
   const list = document.createElement('ul');
-  result.map((item, index) => {
+  list.classList.add('news__list');
+  const listNewsTitle = document.createElement('h1');
+  listNewsTitle.innerHTML = 'Posts News by Fetch';
+  result.map((post, index) => {
+    // create elements
     const listItem = document.createElement('li');
     const listIndex = document.createElement('span');
     const listHeading = document.createElement('h3');
@@ -21,13 +25,15 @@ const renderPosts = async () => {
     postLink.target = '_blank';
     // updating content
     listIndex.innerHTML = index + 1;
-    listHeading.innerHTML = item.title;
-    postText.innerHTML = item.body;
+    listHeading.innerHTML = post.title;
+    postText.innerHTML = post.body;
     postLink.innerHTML = 'Read more';
     listItem.append(listIndex, listHeading, postText, postLink);
     list.appendChild(listItem);
     document.body.append(list);
+    document.body.prepend(listNewsTitle);
   });
 };
 
 renderPosts();
+
