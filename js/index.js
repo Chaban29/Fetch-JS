@@ -37,3 +37,41 @@ const renderPosts = async () => {
 
 renderPosts();
 
+console.log(Number.MAX_SAFE_INTEGER);
+console.log(Number.MIN_SAFE_INTEGER);
+
+(async () => {
+  let url =
+    'https://api.github.com/repos/javascript-tutorial/en.javascript.info/commits';
+  let response = await fetch(url);
+
+  let result = await response.json();
+
+  console.log(result[0].author.login);
+})();
+
+let users = 'https://jsonplaceholder.typicode.com/users';
+
+(async () => {
+  let response = await fetch(users);
+  console.log(response.headers.get('Content-Type'));
+  for (let [key, value] of response.headers) {
+    console.log(`${key}=${value}`);
+  }
+})();
+
+const posts = 'https://jsonplaceholder.typicode.com/posts/101';
+
+const newPost = {
+  userId: 101,
+  id: 101,
+  title: 'hello',
+  body: 'hello body',
+};
+
+const response = fetch(posts, {
+  method: 'DELETE',
+  body: JSON.stringify(newPost),
+});
+
+response.then((resultOfPosts) => console.log(resultOfPosts)).then(console.log);
